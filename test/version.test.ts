@@ -15,9 +15,12 @@ test('package.json, manifest.json and src/version.ts agree', async () => {
   const server = JSON.parse(await readFile(new URL('server.json', root), 'utf8')) as {
     name: string;
     version: string;
+    description: string;
     packages: Array<{ registryType: string; identifier: string; version?: string }>;
   };
   assert.equal(server.version, VERSION);
+  // The MCP Registry rejects longer descriptions with a 422 (measured on 1.0.3).
+  assert.ok(server.description.length <= 100, `server.json description is ${server.description.length} chars`);
   assert.equal(server.packages[1]?.registryType, 'npm');
   assert.equal(server.packages[1]?.identifier, pkg.name);
   assert.equal(server.packages[1]?.version, VERSION);

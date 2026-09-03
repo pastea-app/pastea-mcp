@@ -4,6 +4,12 @@ All notable changes to `pastea-mcp`. The version here, in `package.json`,
 `manifest.json`, `server.json` and `src/version.ts` move together; the release
 workflow reads this file for the GitHub release notes.
 
+## [1.0.4] — 2026-09-03
+
+- Registry listing description trimmed to the 100-character limit the MCP Registry
+  enforces; manifest `author.url` now points at the GitHub organisation, as the
+  Claude Desktop directory requires. No code changes.
+
 ## [1.0.3] — 2026-09-03
 
 - Listed in the official MCP Registry as `io.github.pastea-app/pastea-mcp`, and

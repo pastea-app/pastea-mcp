@@ -1,6 +1,6 @@
 {
   "name": "@pastea/mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "mcpName": "io.github.pastea-app/pastea-mcp",
   "description": "Local MCP server bridge for Pastea — give Claude Desktop, Claude Code, Cursor, Codex and other AI tools access to your Mac clipboard history. Runs on your Mac; pairs with one click in Pastea.",
   "keywords": [
