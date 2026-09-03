@@ -4,6 +4,11 @@ All notable changes to `pastea-mcp`. The version here, in `package.json`,
 `manifest.json`, `server.json` and `src/version.ts` move together; the release
 workflow reads this file for the GitHub release notes.
 
+## [1.0.3] — 2026-09-03
+
+- Listed in the official MCP Registry as `io.github.pastea-app/pastea-mcp`, and
+  published to npm from CI via trusted publishing. No code changes.
+
 ## [1.0.2] — 2026-09-03
 
 - The npm package is `@pastea/mcp`, scoped under the pastea organisation; the
