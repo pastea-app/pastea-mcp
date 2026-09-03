@@ -56,8 +56,7 @@ Pastea asks you again only if you ask Claude to reconnect.
 
 Cursor, VS Code, Claude Code, Windsurf and Codex do not need this extension: they speak
 HTTP directly to Pastea. Pastea's Settings → MCP & AI Tools has a one-click or
-copy-paste setup for each. This bundle also works under Claude Code (`claude mcp add`
-with an `.mcpb` is supported), where the pairing prompt names Claude Code instead.
+copy-paste setup for each.
 
 ## Privacy Policy
 
