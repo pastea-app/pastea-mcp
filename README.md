@@ -1,7 +1,7 @@
 # Pastea MCP
 
 [![GitHub release](https://img.shields.io/github/v/release/pastea-app/pastea-mcp?label=release)](https://github.com/pastea-app/pastea-mcp/releases/latest)
-[![npm version](https://img.shields.io/npm/v/pastea-mcp.svg)](https://www.npmjs.com/package/pastea-mcp)
+[![npm version](https://img.shields.io/npm/v/%40pastea%2Fmcp.svg)](https://www.npmjs.com/package/@pastea/mcp)
 [![CI](https://github.com/pastea-app/pastea-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/pastea-app/pastea-mcp/actions/workflows/ci.yml)
 [![license](https://img.shields.io/github/license/pastea-app/pastea-mcp.svg)](LICENSE)
 
@@ -34,7 +34,7 @@ Use [`add-mcp`](https://www.npmjs.com/package/add-mcp) to connect Pastea to all 
 AI apps at once:
 
 ```bash
-npx add-mcp pastea-mcp
+npx add-mcp @pastea/mcp
 ```
 
 Or connect each app yourself:
@@ -42,27 +42,27 @@ Or connect each app yourself:
 **Claude Code**
 
 ```bash
-claude mcp add pastea -- npx -y pastea-mcp
+claude mcp add pastea -- npx -y @pastea/mcp
 ```
 
 **Codex**
 
 ```bash
-codex mcp add pastea -- npx -y pastea-mcp
+codex mcp add pastea -- npx -y @pastea/mcp
 ```
 
 **Cursor**
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=pastea&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInBhc3RlYS1tY3AiXX0%3D)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=pastea&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBwYXN0ZWEvbWNwIl19)
 
 **VS Code**
 
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=pastea&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22pastea-mcp%22%5D%7D)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=pastea&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40pastea%2Fmcp%22%5D%7D)
 
 **Anything else** that runs stdio MCP servers:
 
 ```json
-{ "mcpServers": { "pastea": { "command": "npx", "args": ["-y", "pastea-mcp"] } } }
+{ "mcpServers": { "pastea": { "command": "npx", "args": ["-y", "@pastea/mcp"] } } }
 ```
 
 The first time an app uses Pastea, Pastea shows **"Allow &lt;app&gt; to use your clipboard

@@ -4,6 +4,12 @@ All notable changes to `pastea-mcp`. The version here, in `package.json`,
 `manifest.json`, `server.json` and `src/version.ts` move together; the release
 workflow reads this file for the GitHub release notes.
 
+## [1.0.2] — 2026-09-03
+
+- The npm package is `@pastea/mcp`, scoped under the pastea organisation; the
+  binary is still `pastea-mcp`. `server.json` lists both the `.mcpb` release asset
+  and the npm package.
+
 ## [1.0.1] — 2026-09-03
 
 - Published as an npm package with a `pastea-mcp` binary, so any MCP client that
