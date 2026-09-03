@@ -15,3 +15,7 @@ package-lock.json
 .gitignore
 .DS_Store
 *.tmp
+server.json
+CHANGELOG.md
+.gitattributes
+assets/

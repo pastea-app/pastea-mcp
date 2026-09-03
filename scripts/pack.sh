@@ -9,8 +9,9 @@ cd "$(dirname "$0")/.."
 PKG_VERSION=$(node -p "require('./package.json').version")
 MANIFEST_VERSION=$(node -p "require('./manifest.json').version")
 SRC_VERSION=$(sed -nE "s/^export const VERSION = '([^']+)';/\1/p" src/version.ts)
-if [ "$PKG_VERSION" != "$MANIFEST_VERSION" ] || [ "$PKG_VERSION" != "$SRC_VERSION" ]; then
-  echo "!! version mismatch: package.json=$PKG_VERSION manifest.json=$MANIFEST_VERSION src/version.ts=$SRC_VERSION" >&2
+SERVER_VERSION=$(node -p "require('./server.json').version")
+if [ "$PKG_VERSION" != "$MANIFEST_VERSION" ] || [ "$PKG_VERSION" != "$SRC_VERSION" ] || [ "$PKG_VERSION" != "$SERVER_VERSION" ]; then
+  echo "!! version mismatch: package.json=$PKG_VERSION manifest.json=$MANIFEST_VERSION src/version.ts=$SRC_VERSION server.json=$SERVER_VERSION" >&2
   exit 1
 fi
 

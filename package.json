@@ -1,12 +1,27 @@
 {
   "name": "pastea-mcp",
-  "version": "1.0.0",
-  "description": "Search, read and re-copy your Mac clipboard history from Claude — Pastea's local, private MCP bridge for Claude Desktop.",
-  "type": "module",
-  "private": true,
-  "license": "MIT",
-  "author": "Nexo Labs (https://pastea.app)",
-  "homepage": "https://pastea.app",
+  "version": "1.0.1",
+  "mcpName": "io.github.pastea-app/pastea-mcp",
+  "description": "Local MCP server bridge for Pastea — give Claude Desktop, Claude Code, Cursor, Codex and other AI tools access to your Mac clipboard history. Runs on your Mac; pairs with one click in Pastea.",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "claude",
+    "claude-desktop",
+    "claude-code",
+    "cursor",
+    "codex",
+    "clipboard",
+    "clipboard-history",
+    "pastea",
+    "macos",
+    "mac",
+    "ai-tools",
+    "local-mcp",
+    "stdio"
+  ],
+  "homepage": "https://pastea.app/help/mcp",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pastea-app/pastea-mcp.git"
@@ -14,14 +29,29 @@
   "bugs": {
     "url": "https://github.com/pastea-app/pastea-mcp/issues"
   },
+  "license": "MIT",
+  "author": "Nexo Labs (https://pastea.app)",
+  "type": "module",
+  "bin": {
+    "pastea-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=20"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p tsconfig.json && chmod +x dist/index.js",
     "test": "rm -rf build-test && tsc -p tsconfig.test.json && node --test build-test/test/*.test.js",
     "validate": "mcpb validate manifest.json",
-    "pack": "scripts/pack.sh"
+    "pack": "scripts/pack.sh",
+    "prepublishOnly": "npm run build && npm test"
   },
   "devDependencies": {
     "@anthropic-ai/mcpb": "^2.1.2",

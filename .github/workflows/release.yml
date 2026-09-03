@@ -1,37 +1,81 @@
 name: Release
 
-# Tag `vX.Y.Z` (matching package.json, manifest.json and src/version.ts) and
-# the bundle plus its checksum land on the GitHub Release. That URL is what
-# the Claude Desktop directory submission and Pastea's embedded copy point at.
+# Tag `vX.Y.Z` (matching package.json, manifest.json, server.json and
+# src/version.ts) and:
+#   1. the .mcpb and its checksum land on the GitHub Release — the URL the Claude
+#      Desktop directory submission and Pastea's embedded copy point at;
+#   2. with the repository variable PUBLISH_NPM=true, the package is published to
+#      npm with provenance (trusted publishing: configure this repo + workflow as
+#      a trusted publisher of `pastea-mcp` on npmjs.com first — no token needed);
+#   3. with PUBLISH_MCP_REGISTRY=true, the listing is published to the official
+#      MCP Registry under io.github.pastea-app/* via GitHub OIDC — no secret.
+#
+# Both publishing steps are gated on variables rather than made non-fatal: a
+# step that fails and is ignored is how a release silently stops shipping.
 on:
   push:
     tags: ['v*']
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   release:
     runs-on: macos-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      sha256: ${{ steps.meta.outputs.sha256 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm test
       - run: scripts/pack.sh
       - name: Check the tag matches the version
+        id: meta
         run: |
           VERSION=$(node -p "require('./package.json').version")
           [ "v$VERSION" = "${GITHUB_REF_NAME}" ] || { echo "tag ${GITHUB_REF_NAME} != v$VERSION"; exit 1; }
-      - name: Publish the release
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "sha256=$(shasum -a 256 "build/pastea-mcp-$VERSION.mcpb" | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+      - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=${{ steps.meta.outputs.version }}
           gh release create "${GITHUB_REF_NAME}" \
             "build/pastea-mcp-$VERSION.mcpb" build/SHA256SUMS \
             --title "pastea-mcp $VERSION" \
-            --notes "Claude Desktop extension for Pastea $VERSION. Download the .mcpb and double-click it, or install Pastea from https://pastea.app and use Settings → MCP & AI Tools → Claude Desktop."
+            --notes-file <(sed -n "/^## \[$VERSION\]/,/^## \[/p" CHANGELOG.md | sed '$d')
+      - name: Publish to npm (trusted publishing)
+        if: vars.PUBLISH_NPM == 'true'
+        run: |
+          npm install -g npm@latest
+          npm publish --provenance --access public
+
+  mcp-registry:
+    needs: release
+    if: vars.PUBLISH_MCP_REGISTRY == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stamp the release's bundle into server.json
+        run: |
+          VERSION=${{ needs.release.outputs.version }}
+          SHA=${{ needs.release.outputs.sha256 }}
+          URL="https://github.com/pastea-app/pastea-mcp/releases/download/v$VERSION/pastea-mcp-$VERSION.mcpb"
+          jq --arg v "$VERSION" --arg u "$URL" --arg s "$SHA" \
+            '.version = $v | .packages[0].identifier = $u | .packages[0].fileSha256 = $s' \
+            server.json > server.tmp && mv server.tmp server.json
+          cat server.json
+      - name: Install mcp-publisher
+        run: curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Authenticate to the MCP Registry (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish the server listing
+        run: ./mcp-publisher publish

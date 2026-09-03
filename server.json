@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pastea-app/pastea-mcp",
+  "title": "Pastea",
+  "description": "Give AI tools access to your Mac clipboard history from Pastea. Runs locally; pairs with one click in Pastea.",
+  "version": "1.0.1",
+  "websiteUrl": "https://pastea.app/help/mcp",
+  "repository": {
+    "url": "https://github.com/pastea-app/pastea-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/pastea-app/pastea-mcp/releases/download/v1.0.1/pastea-mcp-1.0.1.mcpb",
+      "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

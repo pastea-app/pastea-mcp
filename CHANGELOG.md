@@ -1,0 +1,20 @@
+# Changelog
+
+All notable changes to `pastea-mcp`. The version here, in `package.json`,
+`manifest.json`, `server.json` and `src/version.ts` move together; the release
+workflow reads this file for the GitHub release notes.
+
+## [1.0.1] — 2026-09-03
+
+- Published as an npm package with a `pastea-mcp` binary, so any MCP client that
+  runs stdio servers can use `npx -y pastea-mcp` — Claude Code, Codex, Cursor,
+  VS Code — and pair with Pastea the same way Claude Desktop does.
+- Added `server.json` for the official MCP Registry.
+- README rewritten with per-client install steps.
+
+## [1.0.0] — 2026-09-03
+
+- First release: the Claude Desktop extension (`.mcpb`) bridging Claude to
+  Pastea's local MCP endpoint. Zero configuration — discovers Pastea's port,
+  pairs with one click in Pastea, and serves a `pastea_status` tool whenever
+  Pastea is unreachable, unpaired or unlicensed.
