@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
-    "test": "rm -rf build-test && tsc -p tsconfig.test.json && node --test 'build-test/test/*.test.js'",
+    "test": "rm -rf build-test && tsc -p tsconfig.test.json && node --test build-test/test/*.test.js",
     "validate": "mcpb validate manifest.json",
     "pack": "scripts/pack.sh"
   },
