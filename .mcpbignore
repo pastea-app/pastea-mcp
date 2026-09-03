@@ -1,0 +1,17 @@
+# Everything that is not needed to run dist/index.js under Claude Desktop's
+# bundled Node. The bridge has no runtime dependencies, so node_modules is
+# dev tooling only.
+node_modules/
+src/
+test/
+build/
+build-test/
+scripts/
+.github/
+tsconfig.json
+tsconfig.test.json
+package-lock.json
+.mcpbignore
+.gitignore
+.DS_Store
+*.tmp

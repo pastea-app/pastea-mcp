@@ -1,0 +1,31 @@
+{
+  "name": "pastea-mcp",
+  "version": "1.0.0",
+  "description": "Search, read and re-copy your Mac clipboard history from Claude — Pastea's local, private MCP bridge for Claude Desktop.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Nexo Labs (https://pastea.app)",
+  "homepage": "https://pastea.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pastea-app/pastea-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pastea-app/pastea-mcp/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "test": "rm -rf build-test && tsc -p tsconfig.test.json && node --test 'build-test/test/*.test.js'",
+    "validate": "mcpb validate manifest.json",
+    "pack": "scripts/pack.sh"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
